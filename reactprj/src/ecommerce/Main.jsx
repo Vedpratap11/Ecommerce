@@ -14,10 +14,16 @@ export const ecomcontext = createContext({})
 
 function Main() {
   const [cart, setCart] = useState([])
-  const [isButtonVisible, setIsButtonVisible] = useState(true)
+  // const [isButtonVisible, setIsButtonVisible] = useState(true)
+  function isProductInCart(id){
+    if(cart.find(item => item.id === id)){
+      return true
+    }
+    else return false
+  }
   function handleAddToCart(obj){
     
-    if( cart.find(item => obj.id===item.id)) {setIsButtonVisible(!isButtonVisible)
+    if( cart.find(item => obj.id===item.id)) {//setIsButtonVisible(!isButtonVisible)
 
       return (cart)
     }
@@ -29,7 +35,7 @@ function Main() {
 
   function handleRemoveFromCart(product){
     setCart(cart.filter((obj)=>{return(obj.id ===! product.id)}))
-    setIsButtonVisible(!isButtonVisible)
+    // setIsButtonVisible(!isButtonVisible)
   }
   return (
     <>
@@ -55,7 +61,7 @@ function Main() {
 
       {/* ------------Contex-------------- */}
       <BrowserRouter>
-       <ecomcontext.Provider value={{cart, setCart, handleRemoveFromCart, handleAddToCart, isButtonVisible}}>
+       <ecomcontext.Provider value={{cart, setCart, handleRemoveFromCart, handleAddToCart, isProductInCart}}>
          <Header/>
          <Routes>
              <Route path='/' element={<Home/>}></Route>
